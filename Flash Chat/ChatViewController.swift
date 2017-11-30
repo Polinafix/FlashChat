@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Flash Chat
 //
-//  Created by Angela Yu on 29/08/2015.
+//  Created by Polina Fiksson.
 //  Copyright (c) 2015 London App Brewery. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 
-class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     
     
@@ -33,10 +33,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         messageTableView.dataSource = self
         
         //TODO: Set yourself as the delegate of the text field here:
+        messageTextfield.delegate = self
 
-        
-        
         //TODO: Set the tapGesture here:
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
+        messageTableView.addGestureRecognizer(tapGesture)
         
         
 
@@ -76,6 +77,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     //TODO: Declare tableViewTapped here:
+    @objc func tableViewTapped() {
+        //will call textFieldEndEditing
+        messageTextfield.endEditing(true)
+    }
     
     
     
@@ -99,11 +104,28 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     //TODO: Declare textFieldDidBeginEditing here:
+    //when some activity is detected inside the textField(user is beginning to type inside the field)
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        UIView.animate(withDuration: 0.5) {
+            //increase the height constraint for the text field to go up
+            //258(keyboard height) + 50(text field height)
+            self.heightConstraint.constant = 308
+            //BUT we have to call on auto layout to update all the views to redraw everything on screen before this code comes into action
+            self.view.layoutIfNeeded()//if the cinstraint has changed > redraw
+        }
+    }
     
     
     
     
     //TODO: Declare textFieldDidEndEditing here:
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.5) {
+            self.heightConstraint.constant = 50
+            self.view.layoutIfNeeded()
+        }
+    }
     
 
     
@@ -111,9 +133,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     //MARK: - Send & Recieve from Firebase
-    
-    
-    
     
     
     @IBAction func sendPressed(_ sender: AnyObject) {
