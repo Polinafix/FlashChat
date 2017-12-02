@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         //intitalization: reference to a brand new database within our Firebase
-        let myDatabase = Database.database().reference()
+        //let myDatabase = Database.database().reference()
         
         //set a new value in the database(test)
-        myDatabase.setValue("New data!")
+       // myDatabase.setValue("New data!")
         
         return true
     }
