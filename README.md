@@ -1,20 +1,19 @@
 # Flash-Chat
 
 
-## Podfile Configuration
-```
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
-        end
-    end
-end
-```
+### Objecives learned:
+
+- storing data in the cloud using Firebase Realtime Database
+- quering the Firebase database
+- using Firebase for user authentication
+- creating custom cells in a Table View
+- making custom .xib files to modify native design components
+- using Grand Central Dispatch to queue asynchronous tasks
+
 
 ## Finished App
 ![Finished App](https://github.com/londonappbrewery/Images/blob/master/Flash%20Chat.gif)
 
 
 
-Copyright © The App Brewery
+
